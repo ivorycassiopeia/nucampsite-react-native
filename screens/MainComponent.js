@@ -118,7 +118,7 @@ const Main = () => {
                     options={{ title: 'Contact Us' }}
                 />
             </Drawer.Navigator>
-        </View >
+        </View>
     );
 };
 

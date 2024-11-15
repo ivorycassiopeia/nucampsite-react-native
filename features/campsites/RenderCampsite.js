@@ -12,7 +12,8 @@ const RenderCampsite = ({ campsite }) => {
                                 color: 'white',
                                 textAlign: 'center',
                                 fontSize: 20
-                            }}>
+                            }}
+                        >
                             {campsite.name}
                         </Text>
                     </View>
