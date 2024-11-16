@@ -20,15 +20,6 @@ import { fetchCampsites } from '../features/campsites/campsitesSlice';
 import { fetchPromotions } from '../features/promotions/promotionsSlice';
 import { fetchComments } from '../features/comments/commentsSlice';
 
-const dispatch = useDispatch();
-
-useEffect(() => {
-    dispatch(fetchCampsites());
-    dispatch(fetchPromotions());
-    dispatch(fetchPartners());
-    dispatch(fetchComments());
-}, [dispatch]);
-
 const Drawer = createDrawerNavigator();
 
 const screenOptions = {
@@ -152,6 +143,15 @@ const CustomDrawerContent = (props) => (
 );
 
 const Main = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCampsites());
+        dispatch(fetchPromotions());
+        dispatch(fetchPartners());
+        dispatch(fetchComments());
+    }, [dispatch]);
+
     return (
         <View
             style={{

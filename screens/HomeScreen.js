@@ -1,7 +1,7 @@
-import { Text, View, ScrollView } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 import { useSelector } from 'react-redux';
-import { baseUrl } from '../shared/baseURL';
+import { baseUrl } from '../../shared/baseUrl';
 
 const FeaturedItem = ({ item }) => {
     if (item) {
@@ -11,7 +11,9 @@ const FeaturedItem = ({ item }) => {
                     <View style={{ justifyContent: 'center', flex: 1 }}>
                         <Text
                             style={{
-                                color: 'white', textAlign: 'center', fontSize: 20
+                                color: 'white',
+                                textAlign: 'center',
+                                fontSize: 20
                             }}
                         >
                             {item.name}
@@ -26,7 +28,6 @@ const FeaturedItem = ({ item }) => {
 };
 
 const HomeScreen = () => {
-
     const campsites = useSelector((state) => state.campsites);
     const promotions = useSelector((state) => state.promotions);
     const partners = useSelector((state) => state.partners);
