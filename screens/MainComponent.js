@@ -190,7 +190,7 @@ const Main = () => {
                 screenOptions={{ drawerStyle: { backgroundColor: '#CEC8FF' } }}
             >
                 <Drawer.Screen
-                    name='Home'
+                    name='HomeNav'
                     component={HomeNavigator}
                     options={{
                         title: 'Home',
@@ -206,7 +206,7 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
-                    name='Directory'
+                    name='DirectoryNav'
                     component={DirectoryNavigator}
                     options={{
                         title: 'Campsite Directory',
@@ -238,7 +238,7 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
-                    name='About'
+                    name='AboutNav'
                     component={AboutNavigator}
                     options={{
                         title: 'About',
@@ -254,7 +254,7 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
-                    name='Contact'
+                    name='ContactNav'
                     component={ContactNavigator}
                     options={{
                         title: 'Contact Us',
