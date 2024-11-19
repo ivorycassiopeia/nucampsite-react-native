@@ -1,18 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { SwipeRow } from 'react-native-swipe-list-view';
-import { toggleFavorite } from '../features/favorites/favoritesSlice';
+import {
+    View,
+    FlatList,
+    Text,
+    TouchableOpacity,
+    StyleSheet,
+    Alert
+} from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 import Loading from '../components/LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-
-const dispatch = useDispatch();
+import { SwipeRow } from 'react-native-swipe-list-view';
+import { toggleFavorite } from '../features/favorites/favoritesSlice';
 
 const FavoritesScreen = ({ navigation }) => {
     const { campsitesArray, isLoading, errMess } = useSelector(
         (state) => state.campsites
     );
     const favorites = useSelector((state) => state.favorites);
+    const dispatch = useDispatch();
 
     const renderFavoriteItem = ({ item: campsite }) => {
         return (
@@ -20,7 +26,31 @@ const FavoritesScreen = ({ navigation }) => {
                 <View style={styles.deleteView}>
                     <TouchableOpacity
                         style={styles.deleteTouchable}
-                        onPress={() => dispatch(toggleFavorite(campsite.id))}
+                        onPress={() => Alert.alert(
+                            'Delete Favorite?',
+                            'Are you sure you wish to delete the favorite campsite ' +
+                            campsite.name +
+                            '?',
+                            [
+                                {
+                                    text: 'Cancel',
+                                    onPress: () =>
+                                        console.log(
+                                            campsite.name + 'Not Deleted'
+                                        ),
+                                    style: 'cancel'
+                                },
+                                {
+                                    text: 'OK',
+                                    onPress: () =>
+                                        dispatch(
+                                            toggleFavorite(campsite.id)
+                                        )
+                                }
+                            ],
+                            { cancelable: false }
+                        )
+                        }
                     >
                         <Text style={styles.deleteText}>Delete</Text>
                     </TouchableOpacity>
@@ -34,7 +64,10 @@ const FavoritesScreen = ({ navigation }) => {
                             })
                         }
                     >
-                        <Avatar rounded source={{ uri: baseUrl + campsite.image }} />
+                        <Avatar
+                            rounded
+                            source={{ uri: baseUrl + campsite.image }}
+                        />
                         <ListItem.Content>
                             <ListItem.Title>{campsite.name}</ListItem.Title>
                             <ListItem.Subtitle>
