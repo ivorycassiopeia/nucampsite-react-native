@@ -12,6 +12,7 @@ import Loading from '../components/LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import { toggleFavorite } from '../features/favorites/favoritesSlice';
+import * as Animatable from 'react-native-animatable';
 
 const FavoritesScreen = ({ navigation }) => {
     const { campsitesArray, isLoading, errMess } = useSelector(
@@ -21,6 +22,7 @@ const FavoritesScreen = ({ navigation }) => {
     const dispatch = useDispatch();
 
     const renderFavoriteItem = ({ item: campsite }) => {
+
         return (
             <SwipeRow rightOpenValue={-100}>
                 <View style={styles.deleteView}>
@@ -90,14 +92,17 @@ const FavoritesScreen = ({ navigation }) => {
             </View>
         );
     }
+
     return (
-        <FlatList
-            data={campsitesArray.filter((campsite) =>
-                favorites.includes(campsite.id)
-            )}
-            renderItem={renderFavoriteItem}
-            keyExtractor={(item) => item.id.toString()}
-        />
+        <Animatable.View animation='fadeInRightBig' duration={2000}>
+            <FlatList
+                data={campsitesArray.filter((campsite) =>
+                    favorites.includes(campsite.id)
+                )}
+                renderItem={renderFavoriteItem}
+                keyExtractor={(item) => item.id.toString()}
+            />
+        </Animatable.View>
     );
 };
 
