@@ -6,10 +6,10 @@ import * as Animatable from 'react-native-animatable';
 
 const RenderCampsite = (props) => {
     const { campsite } = props;
-
     const view = useRef();
 
     const isLeftSwipe = ({ dx }) => dx < -200;
+    const isRightSwipe = ({ dx }) => dx > 200;
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
@@ -22,6 +22,7 @@ const RenderCampsite = (props) => {
         },
         onPanResponderEnd: (e, gestureState) => {
             console.log('pan responder end', gestureState);
+
             if (isLeftSwipe(gestureState)) {
                 Alert.alert(
                     'Add Favorite',
@@ -40,10 +41,12 @@ const RenderCampsite = (props) => {
                                 props.isFavorite
                                     ? console.log('Already set as a favorite')
                                     : props.markFavorite()
-                        }
+                        },
                     ],
                     { cancelable: false }
                 );
+            } else if (isRightSwipe(gestureState)) {
+                props.onShowModal();
             }
         }
     });
@@ -88,8 +91,8 @@ const RenderCampsite = (props) => {
                     </View>
                 </Card>
             </Animatable.View>
-        );
-    }
+        )
+    };
     return <View />;
 };
 
