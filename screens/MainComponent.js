@@ -233,7 +233,7 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
-                    name='DirectorNav'
+                    name='DirectoryNav'
                     component={DirectoryNavigator}
                     options={{
                         title: 'Campsite Directory',

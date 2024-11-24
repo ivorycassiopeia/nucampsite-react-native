@@ -22,36 +22,36 @@ const FavoritesScreen = ({ navigation }) => {
     const dispatch = useDispatch();
 
     const renderFavoriteItem = ({ item: campsite }) => {
-
         return (
             <SwipeRow rightOpenValue={-100}>
                 <View style={styles.deleteView}>
                     <TouchableOpacity
                         style={styles.deleteTouchable}
-                        onPress={() => Alert.alert(
-                            'Delete Favorite?',
-                            'Are you sure you wish to delete the favorite campsite ' +
-                            campsite.name +
-                            '?',
-                            [
-                                {
-                                    text: 'Cancel',
-                                    onPress: () =>
-                                        console.log(
-                                            campsite.name + 'Not Deleted'
-                                        ),
-                                    style: 'cancel'
-                                },
-                                {
-                                    text: 'OK',
-                                    onPress: () =>
-                                        dispatch(
-                                            toggleFavorite(campsite.id)
-                                        )
-                                }
-                            ],
-                            { cancelable: false }
-                        )
+                        onPress={() =>
+                            Alert.alert(
+                                'Delete Favorite?',
+                                'Are you sure you wish to delete the favorite campsite ' +
+                                campsite.name +
+                                '?',
+                                [
+                                    {
+                                        text: 'Cancel',
+                                        onPress: () =>
+                                            console.log(
+                                                campsite.name + 'Not Deleted'
+                                            ),
+                                        style: 'cancel'
+                                    },
+                                    {
+                                        text: 'OK',
+                                        onPress: () =>
+                                            dispatch(
+                                                toggleFavorite(campsite.id)
+                                            )
+                                    }
+                                ],
+                                { cancelable: false }
+                            )
                         }
                     >
                         <Text style={styles.deleteText}>Delete</Text>
@@ -60,7 +60,7 @@ const FavoritesScreen = ({ navigation }) => {
                 <View>
                     <ListItem
                         onPress={() =>
-                            navigation.navigate('Directory', {
+                            navigation.navigate('DirectoryNav', {
                                 screen: 'CampsiteInfo',
                                 params: { campsite }
                             })
@@ -92,7 +92,6 @@ const FavoritesScreen = ({ navigation }) => {
             </View>
         );
     }
-
     return (
         <Animatable.View animation='fadeInRightBig' duration={2000}>
             <FlatList
