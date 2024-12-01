@@ -23,28 +23,6 @@ import { fetchComments } from '../features/comments/commentsSlice';
 import FavoritesScreen from './FavoritesScreen';
 import LoginScreen from './LoginScreen';
 
-const LoginNavigator = () => {
-    const Stack = createStackNavigator();
-    return (
-        <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen
-                name='Login'
-                component={LoginScreen}
-                options={({ navigation }) => ({
-                    headerLeft: () => (
-                        <Icon
-                            name='sign-in'
-                            type='font-awesome'
-                            iconStyle={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
-                        />
-                    )
-                })}
-            />
-        </Stack.Navigator>
-    );
-};
-
 const Drawer = createDrawerNavigator();
 
 const screenOptions = {
@@ -166,6 +144,28 @@ const FavoritesNavigator = () => {
     );
 };
 
+const LoginNavigator = () => {
+    const Stack = createStackNavigator();
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen
+                name='Login'
+                component={LoginScreen}
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <Icon
+                            name='sign-in'
+                            type='font-awesome'
+                            iconStyle={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
+            />
+        </Stack.Navigator>
+    );
+};
+
 const DirectoryNavigator = () => {
     const Stack = createStackNavigator();
     return (
@@ -240,9 +240,10 @@ const Main = () => {
                 }}
             >
                 <Drawer.Screen
-                    name='Login'
+                    name='LoginNav'
                     component={LoginNavigator}
                     options={{
+                        title: 'Login',
                         drawerIcon: ({ color }) => (
                             <Icon
                                 name='sign-in'
@@ -287,7 +288,7 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
-                    name='ReserveCampsite'
+                    name='ReserveCampsiteNav'
                     component={ReservationNavigator}
                     options={{
                         title: 'Reserve Campsite',
