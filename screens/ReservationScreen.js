@@ -6,7 +6,6 @@ import {
     StyleSheet,
     Switch,
     Button,
-    Platform,
     Alert
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
@@ -26,6 +25,39 @@ const ReservationScreen = () => {
         setDate(currentDate);
     };
 
+    const handleReservation = () => {
+        const message = `Number of Campers: ${campers}
+                            \nHike-In? ${hikeIn}
+                            \nDate: ${date.toLocaleDateString('en-US')}`;
+        Alert.alert(
+            'Begin Search?',
+            message,
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => {
+                        console.log('Reservation Search Canceled');
+                        resetForm();
+                    },
+                    style: 'cancel'
+                },
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        presentLocalNotification(
+                            date.toLocaleDateString('en-US')
+                        );
+                        resetForm();
+                    }
+                }
+            ],
+            { cancelable: false }
+        );
+        console.log('campers:', campers);
+        console.log('hikeIn:', hikeIn);
+        console.log('date:', date);
+    };
+
     const resetForm = () => {
         setCampers(1);
         setHikeIn(false);
@@ -42,6 +74,7 @@ const ReservationScreen = () => {
                     shouldSetBadge: true
                 })
             });
+
             Notifications.scheduleNotificationAsync({
                 content: {
                     title: 'Your Campsite Reservation Search',
@@ -50,55 +83,19 @@ const ReservationScreen = () => {
                 trigger: null
             });
         };
-        let permissions = await Notifications.getPermissionsAsync();
 
+        let permissions = await Notifications.getPermissionsAsync();
         if (!permissions.granted) {
             permissions = await Notifications.requestPermissionsAsync();
-        };
+        }
         if (permissions.granted) {
             sendNotification();
-        };
-    };
-
-    const handleReservation = () => {
-        console.log('campers:', campers);
-        console.log('hikeIn:', hikeIn);
-        console.log('date:', date);
-
-        Alert.alert(
-            "Begin Search?",
-            `Number of Campers: ${campers} 
-            \nHike-In?: ${hikeIn} 
-            \nDate: ${date.toLocaleDateString("en-US")}`,
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => {
-                        resetForm();
-                    },
-                    style: "cancel",
-                },
-                {
-                    text: "OK",
-                    onPress: () => {
-                        presentLocalNotification(
-                            date.toLocaleDateString('en-US')
-                        );
-                        resetForm();
-                    }
-                },
-            ],
-            { cancelable: false }
-        );
+        }
     };
 
     return (
         <ScrollView>
-            <Animatable.View
-                animation='zoomIn'
-                duration={2000}
-                delay={1000}
-            >
+            <Animatable.View animation='zoomIn' duration={2000} delay={1000}>
                 <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Number of Campers:</Text>
                     <Picker
